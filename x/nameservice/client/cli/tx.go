@@ -57,6 +57,33 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 	}
 }
 
+
+func GetCmdVote(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "vote [name]",
+		Short: "for up existing submission",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+
+			coins, err := sdk.ParseCoins(args[1])
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgVote(args[0], votes, cliCtx.GetFromAddress())
+			err = msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+
 // GetCmdSetName is the CLI command for sending a SetName transaction
 func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{

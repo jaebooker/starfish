@@ -12,6 +12,7 @@ type MsgSetName struct {
 	Name  string         `json:"name"`
 	Value string         `json:"value"`
 	Owner sdk.AccAddress `json:"owner"`
+	Votes int 			 `json:"votes"`
 }
 // MsgSetName defines a SetName message
 type MsgSetVote struct {
@@ -22,11 +23,12 @@ type MsgSetVote struct {
 }
 
 // NewMsgSetName is a constructor function for MsgSetName
-func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
+func NewMsgSetName(name string, value string, owner sdk.AccAddress, votes int) MsgSetName {
 	return MsgSetName{
 		Name:  name,
 		Value: value,
 		Owner: owner,
+		Votes: votes,
 	}
 }
 // NewMsgSetName is a constructor function for MsgSetName
@@ -102,7 +104,7 @@ type MsgBuyName struct {
 // MsgBuyName defines the BuyName message
 type MsgUpVote struct {
 	Name  string         `json:"name"`
-	Vote   ing      	`json:"vote"`
+	Vote   int      	`json:"vote"`
 	Voter sdk.AccAddress `json:"voter"`
 }
 

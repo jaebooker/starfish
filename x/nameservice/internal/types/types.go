@@ -18,7 +18,7 @@ type Whois struct {
 	Votes int 		 	 `json:"votes"`
 }
 
-type Whois struct {
+type WhoisVoting struct {
 	Value string         `json:"value"`
 	Owner sdk.AccAddress `json:"owner"`
 	Price sdk.Coins      `json:"price"`
@@ -32,9 +32,9 @@ func NewWhois() Whois {
 	}
 }
 
-func NewWhois() Whois {
-	return Whois{
-		Votes: 0
+func NewWhoisVoting() WhoisVoting {
+	return WhoisVoting{
+		Votes: 0,
 	}
 }
 
@@ -42,10 +42,11 @@ func NewWhois() Whois {
 func (w Whois) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 Value: %s
-Price: %s`, w.Owner, w.Value, w.Price))
+Price: %s
+Votes: %s`, w.Owner, w.Value, w.Price, w.Votes))
 }
 
-func (w Whois) String() string {
+func (w WhoisVoting) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 Value: %s
 Price: %s
